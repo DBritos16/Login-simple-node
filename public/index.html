@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLP Server</title>
+    <style>
+
+        body {
+            background-color: brown;
+        }
+
+        input {
+            border-radius: 0px;
+            border: transparent;
+            background-color: rgba(233, 233, 233, 233);
+            height: 20px;
+        }
+
+        button {
+            border-radius: 20px;
+            border: black solid 1px;
+            width: 5em;
+            height: 2em;
+            margin: 20px;
+        }
+
+        form {
+            background-color: white;
+            max-width: 15%;
+            border: solid black 1px;
+            margin: 200px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <center>
+        <form onsubmit="login(event)">
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <br>
+            <input type="text" id="username">
+            <br><br>
+            <label for="password">Password:</label>
+            <br>
+            <input type="password" id="password">
+            <br><br>
+            <button type="submit">Log in</button>
+        </form>
+    </center>
+
+
+    <script>
+
+        const login = async(e)=>{
+
+            e.preventDefault();
+
+            const req = await fetch('/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "username": document.getElementById('username').value, 
+                    "password": document.getElementById('password').value
+                }),
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+
+            const res = await req.json();
+
+            if(req.ok){
+                return alert(res.msg);
+            }
+
+            return alert(res.msg);
+        }
+
+    </script>
+</body>
+
+</html>
